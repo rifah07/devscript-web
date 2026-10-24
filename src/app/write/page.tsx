@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { WriteCta } from '@/components/WriteCta';
 import { isMisk, site } from '@/site/config';
 
 export const metadata: Metadata = {
@@ -18,9 +18,7 @@ export default function WritePage() {
           ? 'The Misk Journal is a quiet place for poems, reflections and short notes, in Bangla or English. Reading is free, writing is free, and there are no ads, no trackers and no follower counts on the front page.'
           : 'DevScript is open to every developer who wants to explain something well: a bug you fixed, a concept you finally understood, a project you shipped. Free, no ads, no paywall.'}
       </p>
-      <Link className="btn" href="/register" style={{ marginTop: '1rem' }}>
-        Create a free account
-      </Link>
+      <WriteCta className="btn" label="Create a free account" style={{ marginTop: '1rem' }} />
 
       <section>
         <h2>From idea to published, in five steps</h2>
@@ -128,9 +126,7 @@ export default function WritePage() {
           You can export everything you’ve written as a file, or delete your account, from <em>Studio → Settings</em>. If you
           delete it, your posts are unpublished and your comments anonymised.
         </p>
-        <Link className="btn quiet" href="/register">
-          Start writing
-        </Link>
+        <WriteCta className="btn quiet" label="Start writing" />
       </section>
     </article>
   );
