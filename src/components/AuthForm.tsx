@@ -29,6 +29,8 @@ export function AuthForm({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [reveal, setReveal] = useState(false);
+  const hasPassword = fields.some((f) => f.type === 'password');
 
   async function handle(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -58,7 +60,7 @@ export function AuthForm({
               {f.label}
               <input
                 name={f.name}
-                type={f.type ?? 'text'}
+                type={f.type === 'password' && reveal ? 'text' : (f.type ?? 'text')}
                 autoComplete={f.autoComplete}
                 minLength={f.minLength}
                 required
@@ -66,6 +68,12 @@ export function AuthForm({
               />
             </label>
           ))}
+          {hasPassword && (
+            <label className="check">
+              <input type="checkbox" checked={reveal} onChange={(e) => setReveal(e.target.checked)} />
+              Show password
+            </label>
+          )}
           <p id="form-error" className="error" aria-live="polite">
             {error}
           </p>

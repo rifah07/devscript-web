@@ -395,6 +395,26 @@ select {
   width: 100%;
   transition: border-color var(--speed) var(--ease);
 }
+.back {
+  justify-self: start;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.back:hover {
+  color: var(--accent);
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+}
+.check input {
+  width: 1.1rem;
+  min-height: 1.1rem;
+  accent-color: var(--accent);
+}
 input:focus,
 textarea:focus,
 select:focus {
