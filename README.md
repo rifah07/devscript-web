@@ -8,7 +8,17 @@
 `NEXT_PUBLIC_SPACE` (`DEVSCRIPT` or `PERSONAL`) decides which one a deployment is. Everything site-specific lives in [`src/site/config.ts`](src/site/config.ts).
 
 **Stack:** Next.js 16 (App Router, Server Components, Cache Components) · React 19 · TypeScript · plain CSS with design tokens · no UI library, no tracking
-**API:** [`devscript-api`](https://github.com/rifah07/devscript-api) · Free deploy guide: [`devscript-api/docs/DEPLOY.md`](https://github.com/rifah07/devscript-api/blob/master/docs/DEPLOY.md)
+**API:** [devscript-api](https://github.com/rifah07/devscript-api) · **Deploy guide:** [devscript-api/docs/DEPLOY.md](https://github.com/rifah07/devscript-api/blob/master/docs/DEPLOY.md) (free, no card)
+
+| DevScript | The Misk Journal |
+|---|---|
+| ![DevScript home page](docs/screenshots/devscript-home.png) | ![The Misk Journal home page](docs/screenshots/misk-home.png) |
+| **An article, dark theme** | **A Bangla poem** |
+| ![A DevScript article in the dark theme](docs/screenshots/devscript-article.png) | ![A Bangla poem on The Misk Journal](docs/screenshots/misk-poem.png) |
+| **Studio: the writing desk** | **On a phone** |
+| ![The Studio editor](docs/screenshots/devscript-studio.png) | <img src="docs/screenshots/misk-poem-mobile.png" width="260" alt="A poem on a phone"> |
+
+_Screenshots use sample posts and a sample pen name._
 
 ---
 
@@ -95,3 +105,11 @@ Server components ──BACKEND_URL + internal key──▶ NestJS API   ('use c
 ## Deploy
 
 Two Vercel projects from this one repo, differing only in `NEXT_PUBLIC_SPACE` and `NEXT_PUBLIC_SITE_URL`. Step by step: `devscript-api/docs/DEPLOY.md`.
+
+## Status
+
+Feature-complete for both sites. Next: deployment (two Vercel projects from this repo) and a verified email domain for reader emails.
+
+## Author
+
+**Rifah Sajida Deya** · [GitHub](https://github.com/rifah07)
