@@ -9,6 +9,7 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    ".next-misk/**", // the Misk dev server's build output (npm run dev:misk)
     "out/**",
     "build/**",
     "next-env.d.ts",
