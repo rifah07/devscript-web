@@ -57,16 +57,22 @@ export default function CvPage() {
 
       <h2 className="kicker">projects</h2>
       {[
-        ['DevScript', 'NestJS, GraphQL, MongoDB, Next.js, Gemini', 'Two-site writing platform with security-first auth, per-user AI quotas and semantic related posts.'],
-        ['HallMate', 'Express, PostgreSQL, Prisma, Next.js, SSLCommerz', 'Women’s hall portal with ten role dashboards, server-enforced privacy and online bill payment.'],
-        ['ShopSphere', 'TypeScript, Express, MongoDB, Puppeteer', 'Multi-vendor marketplace with payments and a competitor price scraper.'],
-        ['Multi-Tenant Workspace API', 'TypeScript, Express, PostgreSQL, Prisma, Zod', 'Tenant-isolated organisations, projects and tasks with three roles.'],
-        ['ExpenseBot', 'TypeScript, Express, PostgreSQL, Prisma, React, Gemini', 'Telegram expense tracker that understands plain-language messages.'],
-      ].map(([name, tech, line]) => (
+        // The four strongest; the Projects page has the rest
+        ['HallMate', 'Express, PostgreSQL, Prisma, Next.js, SSLCommerz', 'Women’s hall portal: ten role dashboards, privacy enforced by the API, online bill payment, read-only public demo logins.', 'https://hallmate.vercel.app'],
+        ['DevScript', 'NestJS, GraphQL, MongoDB, Next.js, Gemini', 'Two-site writing platform with security-first auth, per-user AI quotas and semantic related posts.', 'https://devscript-seven.vercel.app'],
+        ['ShopBot', 'Next.js, MongoDB, Gemini', 'Shop by chatting: Gemini extracts ten shopping intents, tested server code changes the cart and orders.', 'https://ai-ecommerce-chatbot-six.vercel.app'],
+        ['ShopSphere', 'TypeScript, Express, MongoDB, Puppeteer', 'Multi-vendor marketplace with payments and a competitor price scraper.', 'https://shopsphere-a-complete-world-for-shopping.onrender.com/api-docs'],
+      ].map(([name, tech, line, url]) => (
         <div key={name} className="cv-entry">
           <h3>{name}</h3>
           <p className="meta" style={{ margin: '0.2rem 0' }}>{tech}</p>
           <p style={{ margin: 0 }}>{line}</p>
+          {/* Printed CVs can't be clicked, so the address is shown in full */}
+          {url && (
+            <p className="meta" style={{ margin: '0.2rem 0 0' }}>
+              <a href={url}>{url.replace('https://', '')}</a>
+            </p>
+          )}
         </div>
       ))}
 
