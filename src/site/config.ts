@@ -42,8 +42,7 @@ const DEVSCRIPT: SiteConfig = {
   nav: [
     { href: '/search', label: 'Search' },
     { href: '/write', label: 'Write' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/cv', label: 'CV' },
+    { href: '/about', label: 'About' },
   ],
   defaultTheme: 'dark',
   colors: { light: '#FBFBFA', dark: '#0B0C0E' },
