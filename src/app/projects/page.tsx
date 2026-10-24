@@ -19,10 +19,14 @@ const PROJECTS: Project[] = [
   },
   {
     name: 'HallMate',
-    stack: 'TypeScript · Node.js · PostgreSQL · Prisma',
-    what: 'A REST API for running university women’s halls in Bangladesh: residents, rooms and the admin work behind them.',
-    proud: 'Relational modelling with Prisma, a cache layer in the service layer, and careful delete ordering so no record is left dangling.',
-    links: [['Code', 'https://github.com/rifah07/hallmate-backend']],
+    stack: 'Express 5 · PostgreSQL · Prisma · Next.js 16 · SSLCommerz',
+    what: 'The website and resident portal for a women’s hall at Jagannath University: ten roles, from residents and house tutors to the provost, guard and dining staff, each with a dashboard for their job.',
+    proud:
+      'Privacy rules enforced in the API, not just hidden in the UI (support staff never see residents’ phones or rooms, tutors see only their floor), online bill payment verified server to server, and a phone-camera ID scanner for the gate.',
+    links: [
+      ['API code', 'https://github.com/rifah07/hallmate-backend'],
+      ['Web code', 'https://github.com/rifah07/hallmate-frontend'],
+    ],
   },
   {
     name: 'ShopSphere',

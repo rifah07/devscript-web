@@ -58,7 +58,7 @@ export default function CvPage() {
       <h2 className="kicker">projects</h2>
       {[
         ['DevScript', 'NestJS, GraphQL, MongoDB, Next.js, Gemini', 'Two-site writing platform with security-first auth, per-user AI quotas and semantic related posts.'],
-        ['HallMate', 'TypeScript, Node.js, PostgreSQL, Prisma', 'REST API for university women’s hall management.'],
+        ['HallMate', 'Express, PostgreSQL, Prisma, Next.js, SSLCommerz', 'Women’s hall portal with ten role dashboards, server-enforced privacy and online bill payment.'],
         ['ShopSphere', 'TypeScript, Express, MongoDB, Puppeteer', 'Multi-vendor marketplace with payments and a competitor price scraper.'],
         ['Multi-Tenant Workspace API', 'TypeScript, Express, PostgreSQL, Prisma, Zod', 'Tenant-isolated organisations, projects and tasks with three roles.'],
         ['ExpenseBot', 'TypeScript, Express, PostgreSQL, Prisma, React, Gemini', 'Telegram expense tracker that understands plain-language messages.'],
