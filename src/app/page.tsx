@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { Khatam } from '@/components/art/Khatam';
+import { Mihrab } from '@/components/art/Mihrab';
 import { SignalField } from '@/components/art/SignalField';
 import { Listing } from '@/components/listing/Listing';
 import { SubscribeForm } from '@/components/SubscribeForm';
@@ -11,7 +11,7 @@ export default function Home({ searchParams }: PageProps<'/'>) {
   return isMisk ? (
     <>
       <header style={{ textAlign: 'center', marginBottom: '1rem' }}>
-        <Khatam />
+        <Mihrab />
         <h1 style={{ margin: 0 }}>{site.name}</h1>
         <p className="kicker" style={{ marginTop: '0.6rem' }}>
           {site.tagline}
