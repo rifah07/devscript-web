@@ -8,7 +8,7 @@
 `NEXT_PUBLIC_SPACE` (`DEVSCRIPT` or `PERSONAL`) decides which one a deployment is. Everything site-specific lives in [`src/site/config.ts`](src/site/config.ts).
 
 **Stack:** Next.js 16 (App Router, Server Components, Cache Components) · React 19 · TypeScript · plain CSS with design tokens · no UI library, no tracking
-**API:** [devscript-api](https://github.com/rifah07/devscript-api) · **Deploy guide:** [devscript-api/docs/DEPLOY.md](https://github.com/rifah07/devscript-api/blob/master/docs/DEPLOY.md) (free, no card)
+**Live:** [devscript-seven.vercel.app](https://devscript-seven.vercel.app) · **API:** [devscript-api](https://github.com/rifah07/devscript-api)
 
 | DevScript | The Misk Journal |
 |---|---|
@@ -55,7 +55,7 @@ sequenceDiagram
 | Reactions, bookmarks, follows, comments | AI assistant: titles, tags, editor feedback, summary, narration |
 | "Ask this article" (DevScript) | Series, categories, export data, delete account |
 | Newsletter, RSS, sitemap | Admin: reports, categories, users, stats |
-| A plain-language writer's guide at `/write` | |
+| A plain-language manual at `/write`: writing, images, publishing, reading | |
 
 ## Run locally
 
@@ -102,13 +102,9 @@ Server components ──BACKEND_URL + internal key──▶ NestJS API   ('use c
 - **Poems are never reflowed.** `white-space: pre-wrap` per stanza; Bangla gets `lang="bn"`, its own font and a taller line height.
 - **Security:** sanitized Markdown, no `dangerouslySetInnerHTML` except JSON-LD (escaped) and the theme script, safe `?next=` redirects, http(s)-only profile links, security headers.
 
-## Deploy
-
-Two Vercel projects from this one repo, differing only in `NEXT_PUBLIC_SPACE` and `NEXT_PUBLIC_SITE_URL`. Step by step: `devscript-api/docs/DEPLOY.md`.
-
 ## Status
 
-Feature-complete for both sites. Next: deployment (two Vercel projects from this repo) and a verified email domain for reader emails.
+Both sites are live, each a Vercel project built from this repo. Next: a verified email domain for reader emails.
 
 ## Author
 
