@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { PostList } from '@/components/PostList';
 import { RequireLogin } from '@/components/RequireLogin';
@@ -11,6 +12,9 @@ import { SPACE } from '@/site/config';
 export default function BookmarksPage() {
   return (
     <RequireLogin>
+      <Link className="back" href="/studio">
+        ← Studio
+      </Link>
       <h1>Saved for later</h1>
       <Saved />
     </RequireLogin>

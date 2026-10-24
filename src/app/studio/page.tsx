@@ -73,6 +73,9 @@ function Dashboard() {
           )}
         </div>
         <div className="row">
+          <Link className="btn quiet" href="/bookmarks">
+            Saved
+          </Link>
           <Link className="btn quiet" href="/studio/settings">
             Settings
           </Link>
