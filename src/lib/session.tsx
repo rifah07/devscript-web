@@ -85,6 +85,26 @@ type Session = {
 
 const SessionContext = createContext<Session | null>(null);
 
+// Anonymous readers shouldn't call /auth/refresh on every page load: it's
+// rate-limited per IP, and on a shared campus or mobile IP those calls would
+// crowd out signed-in readers. This flag (no secret) only says "this browser
+// signed in here before". It is cleared on sign-out, not on a failed refresh,
+// so a brief 429 never looks like being logged out.
+const HINT = 'signedIn';
+const setHint = (on: boolean) => {
+  try {
+    if (on) localStorage.setItem(HINT, '1');
+    else localStorage.removeItem(HINT);
+  } catch {}
+};
+const hasHint = () => {
+  try {
+    return localStorage.getItem(HINT) === '1';
+  } catch {
+    return false;
+  }
+};
+
 export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<Me | null>(null);
   const [ready, setReady] = useState(false);
@@ -96,6 +116,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const signIn = useCallback(
     async (token: string, known?: Me) => {
       accessToken = token;
+      setHint(true);
       if (known) setUser(known);
       else await reload();
     },
@@ -106,11 +127,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     await clientGql(`mutation { logout }`).catch(() => undefined);
     accessToken = null;
     setUser(null);
+    setHint(false);
   }, []);
 
   // Bootstrap: one refresh on first mount (single-flight, StrictMode-safe).
   useEffect(() => {
-    void refresh()
+    void (hasHint() ? refresh() : Promise.resolve(null))
       .then((token) => (token ? signIn(token) : undefined))
       .catch(() => undefined)
       .finally(() => setReady(true));
