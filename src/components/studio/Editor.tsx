@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PostBody } from '@/components/PostBody';
@@ -139,6 +140,10 @@ export function Editor({ initial }: { initial: EditablePost | null }) {
       <section className="stack">
         <div className="spread">
           <div className="row">
+            {/* In-app navigation skips beforeunload, so save on the way out */}
+            <Link className="back" href="/studio" onClick={() => dirty && void save()}>
+              ← Studio
+            </Link>
             {post && <StatusChip status={post.status} />}
             <span className="save-state" aria-live="polite">
               {state === 'saving' ? 'Saving…' : state === 'saved' ? 'Saved' : state === 'error' ? 'Not saved' : ''}

@@ -18,6 +18,9 @@ export default function AdminPage() {
   return (
     <RequireLogin admin>
       <div className="wide">
+        <Link className="back" href="/studio">
+          ← Studio
+        </Link>
         <p className="kicker">studio · admin</p>
         <h1>Admin</h1>
         <div className="tabs" role="tablist">

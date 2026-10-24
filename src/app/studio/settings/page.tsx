@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Avatar as AvatarImage } from '@/components/Avatar';
@@ -13,6 +14,9 @@ export default function SettingsPage() {
   return (
     <RequireLogin>
       <div className="stack">
+        <Link className="back" href="/studio">
+          ← Studio
+        </Link>
         <p className="kicker">studio · settings</p>
         <h1>Your account</h1>
         <Email />
