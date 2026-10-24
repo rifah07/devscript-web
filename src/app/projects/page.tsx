@@ -1,0 +1,88 @@
+import type { Metadata } from 'next';
+import { onlyOn } from '@/site/only';
+
+export const metadata: Metadata = { title: 'Projects' };
+
+type Project = { name: string; stack: string; what: string; proud: string; links: [string, string][] };
+
+const PROJECTS: Project[] = [
+  {
+    name: 'DevScript',
+    stack: 'NestJS · GraphQL · MongoDB · Next.js 16 · Gemini',
+    what: 'The platform behind this site and a sister poetry journal: two branded sites, one API, strict per-site data isolation, open for other writers.',
+    proud:
+      'Found and fixed real access-control bugs, rate limiting that works behind serverless proxies, per-user AI quotas enforced atomically in MongoDB, and semantic related posts with a hand-written top-k heap over Gemini embeddings.',
+    links: [
+      ['API code', 'https://github.com/rifah07/devscript-api'],
+      ['Web code', 'https://github.com/rifah07/devscript-web'],
+    ],
+  },
+  {
+    name: 'HallMate',
+    stack: 'TypeScript · Node.js · PostgreSQL · Prisma',
+    what: 'A REST API for running university women’s halls in Bangladesh: residents, rooms and the admin work behind them.',
+    proud: 'Relational modelling with Prisma, a cache layer in the service layer, and careful delete ordering so no record is left dangling.',
+    links: [['Code', 'https://github.com/rifah07/hallmate-backend']],
+  },
+  {
+    name: 'ShopSphere',
+    stack: 'TypeScript · Node.js · Express · MongoDB · Puppeteer',
+    what: 'A multi-vendor marketplace with admin, seller and buyer roles: cart, wishlist, orders, coupons, refunds, reviews and Stripe/PayPal/COD payments.',
+    proud: 'A competitor price scraper that suggests prices to sellers, with a Cheerio fallback where headless Chrome was blocked.',
+    links: [
+      ['Backend', 'https://github.com/rifah07/ShopSphere__A-Complete-World-for-Shopping__Backend'],
+      ['Frontend', 'https://github.com/rifah07/shopsphere-frontend'],
+      ['API docs', 'https://shopsphere-a-complete-world-for-shopping.onrender.com/api-docs'],
+    ],
+  },
+  {
+    name: 'Multi-Tenant Workspace API',
+    stack: 'TypeScript · Express · PostgreSQL · Prisma · Zod',
+    what: 'Organisations, projects, tasks and users, where every query is scoped to one organisation.',
+    proud: 'The tenant id comes from the token, never the request, so isolation can’t be forgotten. Three roles, Swagger docs.',
+    links: [
+      ['Backend', 'https://github.com/rifah07/multi_tenant_organization'],
+      ['Frontend', 'https://github.com/rifah07/multi-tenant-workspace-frontend'],
+      ['API docs', 'https://multi-tenant-organization-9d2r.onrender.com/api-docs'],
+    ],
+  },
+  {
+    name: 'ExpenseBot',
+    stack: 'TypeScript · Express · PostgreSQL · Prisma · Gemini · React',
+    what: 'Type “500 uber yesterday” to a Telegram bot; Gemini pulls out the amount, category and date. Budget alerts and a dashboard.',
+    proud: 'Common phrases are matched by keywords first, so the AI is only called when it’s actually needed.',
+    links: [
+      ['Try the bot', 'https://t.me/ExpenseTrack_R_Bot'],
+      ['Backend', 'https://github.com/rifah07/expense-tracker-telegram-bot-backend'],
+      ['Dashboard', 'https://expense-tracker-telegram-bot-fronte.vercel.app/'],
+    ],
+  },
+];
+
+export default function ProjectsPage() {
+  onlyOn('DEVSCRIPT');
+  return (
+    <>
+      <p className="kicker">projects</p>
+      <h1>Things I’ve built</h1>
+      <p className="muted">Each one started as my own idea. The hardest part of each is written next to it.</p>
+      {PROJECTS.map((p) => (
+        <section key={p.name} className="project">
+          <h2>{p.name}</h2>
+          <p className="meta">{p.stack}</p>
+          <p>{p.what}</p>
+          <p className="muted">
+            <strong>Hardest part:</strong> {p.proud}
+          </p>
+          <p className="row meta">
+            {p.links.map(([label, href]) => (
+              <a key={href} href={href} rel="noopener noreferrer" target="_blank">
+                {label} ↗
+              </a>
+            ))}
+          </p>
+        </section>
+      ))}
+    </>
+  );
+}
