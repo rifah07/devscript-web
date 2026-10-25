@@ -113,16 +113,16 @@
   color-scheme: light;
 }
 
-/* Summer is shared by both sites; the sky-blue accent keeps 5.9:1 on the glass */
+/* Summer is shared by both sites: golden fields; the burnt-orange accent keeps 5.4:1 */
 [data-theme='summer'] {
-  --bg: #e9f3f6;
-  --surface: #fbfdfd;
-  --surface-2: #e3eef0;
-  --text: #1d2b33;
-  --muted: #4f616b;
-  --accent: #1f6a96;
+  --bg: #fbf3e4;
+  --surface: #fffaf1;
+  --surface-2: #f5e9d3;
+  --text: #2e2118;
+  --muted: #6a5440;
+  --accent: #a4471d;
   --accent-ink: #ffffff;
-  --rule: #d3e3e8;
+  --rule: #ecdcc0;
   --danger: #a12a2a;
   color-scheme: light;
 }
@@ -1664,7 +1664,7 @@ a.chip.pending:hover {
 /* Summer: clouds drift (shared .clouds), the tree sways, grass leans, seeds float */
 .hills .rim {
   fill: none;
-  stroke: #d9efb0;
+  stroke: #fff0c0;
   stroke-width: 3;
   opacity: 0.6;
 }
