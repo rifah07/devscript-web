@@ -28,12 +28,6 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   turbopack: {
     root: process.cwd(), // ignore stray lockfiles in parent folders
-    rules: {
-      '*.css': {
-        loaders: ['@tailwindcss/turbopack'],
-        as: '*.css',
-      },
-    },
   },
 
   async headers() {
