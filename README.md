@@ -8,7 +8,12 @@
 `NEXT_PUBLIC_SPACE` (`DEVSCRIPT` or `PERSONAL`) decides which one a deployment is. Everything site-specific lives in [`src/site/config.ts`](src/site/config.ts).
 
 **Stack:** Next.js 16 (App Router, Server Components, Cache Components) · React 19 · TypeScript · plain CSS with design tokens · no UI library, no tracking
-**Live:** [devscript-seven.vercel.app](https://devscript-seven.vercel.app) · **API:** [devscript-api](https://github.com/rifah07/devscript-api)
+**Live:** [devscript-seven.vercel.app](https://devscript-seven.vercel.app) · [misk-journal.vercel.app](https://misk-journal.vercel.app) · **API:** [devscript-api](https://github.com/rifah07/devscript-api)
+
+| DevScript | The Misk Journal |
+|---|---|
+| [![DevScript: a post, the Earth theme, search and the writing studio](docs/demo-devscript.gif)](docs/demo-devscript.mp4) | [![The Misk Journal: Paper, Meadow, Moonlit and Ink themes](docs/demo-misk.gif)](docs/demo-misk.mp4) |
+| ▶ **[Full demo, 1 min](docs/demo-devscript.mp4)**: themes, search, the Markdown toolbar | ▶ **[Full demo, 45 s](docs/demo-misk.mp4)**: the hand-drawn Meadow and Moonlit themes |
 
 | DevScript | The Misk Journal |
 |---|---|
@@ -55,7 +60,17 @@ sequenceDiagram
 | Reactions, bookmarks, follows, comments | AI assistant: titles, tags, editor feedback, summary, narration |
 | "Ask this article" (DevScript) | Series, categories, export data, delete account |
 | Newsletter, RSS, sitemap | Admin: reports, categories, users, stats |
-| A plain-language manual at `/write`: writing, images, publishing, reading | |
+| A plain-language manual at `/write`: writing, images, publishing, reading | Markdown toolbar: code block, inline code, bold, italic, heading, link, quote, list, with shortcuts and working undo |
+
+### Themes
+
+Each site has its own set, chosen from a menu with painted swatches. The new theme grows out of the spot you clicked (View Transitions API), and the choice is applied before first paint, so the page never flashes.
+
+| DevScript | The Misk Journal |
+|---|---|
+| **Terminal** (green on black) · **Paper** · **Earth**: warm sand with slow topographic contour lines | **Paper** · **Ink** · **Meadow**: hills, trees, a pond and a river · **Moonlit**: stars, a full moon and the sea at night |
+
+The scenes are hand-drawn SVG in [`src/components/Scenery.tsx`](src/components/Scenery.tsx), rendered on the server with no client JavaScript; motion is CSS only and stops under `prefers-reduced-motion`. Text sits on a frosted-glass sheet so it stays readable over the landscape.
 
 ## Run locally
 
