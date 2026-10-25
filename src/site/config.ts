@@ -56,7 +56,7 @@ const DEVSCRIPT: SiteConfig = {
     { id: 'dark', label: 'Terminal', hint: 'Green on black', swatch: 'linear-gradient(135deg, #0b0c0e 55%, #4ade9a 55%)' },
     { id: 'light', label: 'Paper', hint: 'Plain and bright', swatch: 'linear-gradient(135deg, #fbfbfa 55%, #0f7a4b 55%)' },
     { id: 'earth', label: 'Earth', hint: 'Clay, sand and contour lines', swatch: 'linear-gradient(135deg, #efe4d2 0 40%, #c27a4a 40% 70%, #5b6b3a 70%)', scene: 'earth' },
-    { id: 'summer', label: 'Summer', hint: 'Big clouds over green hills, painted by hand', swatch: 'linear-gradient(180deg, #7db6e3 0 40%, #f4f8fb 40% 55%, #86bc63 55%)', scene: 'summer' },
+    { id: 'summer', label: 'Summer', hint: 'Golden wheat hills in the late sun', swatch: 'linear-gradient(180deg, #e9a46a 0 40%, #f6c978 40% 55%, #ddb052 55%)', scene: 'summer' },
   ],
 };
 
@@ -90,7 +90,7 @@ const MISK: SiteConfig = {
   themes: [
     { id: 'light', label: 'Paper', hint: 'Warm, like a notebook', swatch: 'linear-gradient(135deg, #f7f1e6 55%, #a4574b 55%)' },
     { id: 'dark', label: 'Ink', hint: 'Lamplight on dark paper', swatch: 'linear-gradient(135deg, #15110e 55%, #c98476 55%)' },
-    { id: 'summer', label: 'Summer', hint: 'Big clouds over green hills, painted by hand', swatch: 'linear-gradient(180deg, #7db6e3 0 40%, #f4f8fb 40% 55%, #86bc63 55%)', scene: 'summer' },
+    { id: 'summer', label: 'Summer', hint: 'Golden wheat hills in the late sun', swatch: 'linear-gradient(180deg, #e9a46a 0 40%, #f6c978 40% 55%, #ddb052 55%)', scene: 'summer' },
     { id: 'meadow', label: 'Meadow', hint: 'Hills, trees, a pond and a river', swatch: 'linear-gradient(180deg, #dbeaf0 0 45%, #b8d4a8 45% 75%, #7fa774 75%)', scene: 'meadow' },
     { id: 'moonlit', label: 'Moonlit', hint: 'Stars, a moon and the sea at night', swatch: 'radial-gradient(circle at 70% 30%, #f6e7b0 0 14%, transparent 15%), linear-gradient(180deg, #0b1430 60%, #1d3b6b 60%)', scene: 'moonlit' },
   ],
