@@ -12,6 +12,7 @@ export function Scenery() {
       {scenes.has('meadow') && <Meadow />}
       {scenes.has('moonlit') && <Moonlit />}
       {scenes.has('earth') && <Earth />}
+      {scenes.has('summer') && <Summer />}
     </div>
   );
 }
@@ -249,6 +250,156 @@ function Earth() {
         <circle cx="1122" cy="748" r="2" />
       </g>
       <Grain id="e-grain" />
+    </svg>
+  );
+}
+
+// Summer: a painted afternoon. Light comes from the top right, so every
+// cloud and the tree are drawn in three passes: shade, body, highlight,
+// each nudged towards the sun. Clouds sit on a flat base, like real cumulus.
+type Puff = [x: number, y: number, r: number];
+
+const CUMULUS: Puff[] = [
+  [-190, -34, 52], [-120, -52, 72], [-30, -64, 86], [70, -56, 80], [160, -36, 58],
+  [-80, -128, 74], [10, -168, 92], [100, -132, 70], [-20, -238, 66], [60, -220, 58],
+];
+const SMALL_CLOUD: Puff[] = [[-80, -24, 40], [-20, -40, 56], [50, -34, 48], [100, -20, 32], [10, -84, 46]];
+
+function Cumulus({ x, y, s, puffs }: { x: number; y: number; s: number; puffs: Puff[] }) {
+  const pass = (fill: string, dx: number, dy: number, k: number) => (
+    <g fill={fill}>
+      {puffs.map(([px, py, r], i) => (
+        <circle key={i} cx={px + dx} cy={py + dy} r={r * k} />
+      ))}
+    </g>
+  );
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`} clipPath="url(#s-flat)">
+      {pass('#b8c6e0', 0, 0, 1)}
+      {pass('#e6edf8', 8, -10, 0.9)}
+      {pass('#ffffff', 18, -22, 0.68)}
+      {/* faded as one layer, so overlapping puffs don't stack */}
+      <g opacity="0.7">{pass('url(#s-belly)', 0, 0, 1)}</g>
+    </g>
+  );
+}
+
+function Summer() {
+  const seeds = [
+    [180, 520, 0], [420, 610, 3], [960, 470, 6], [1180, 560, 9], [1420, 500, 12], [700, 560, 15],
+  ];
+  return (
+    <svg className="scene scene-summer" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="s-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#3f80c4" />
+          <stop offset="0.38" stopColor="#7db6e3" />
+          <stop offset="0.62" stopColor="#c6e2ef" />
+          <stop offset="0.78" stopColor="#f3ecd4" />
+        </linearGradient>
+        <radialGradient id="s-sun">
+          <stop offset="0" stopColor="#fff7dc" stopOpacity="0.95" />
+          <stop offset="1" stopColor="#fff7dc" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="s-far" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#9dbfd8" />
+          <stop offset="1" stopColor="#c4dbe4" />
+        </linearGradient>
+        <linearGradient id="s-belly" gradientUnits="userSpaceOnUse" x1="0" y1="-110" x2="0" y2="0">
+          <stop offset="0" stopColor="#aebfdc" stopOpacity="0" />
+          <stop offset="1" stopColor="#aebfdc" />
+        </linearGradient>
+        {/* everything above y=0 in a cloud's own space: its flat base */}
+        <clipPath id="s-flat">
+          <rect x="-400" y="-400" width="800" height="400" />
+        </clipPath>
+      </defs>
+
+      <rect width="1600" height="1000" fill="url(#s-sky)" />
+      <circle cx="1380" cy="150" r="300" fill="url(#s-sun)" />
+
+      <g className="clouds">
+        <Cumulus x={230} y={420} s={0.9} puffs={CUMULUS} />
+        <Cumulus x={1250} y={470} s={0.8} puffs={CUMULUS} />
+        <Cumulus x={760} y={250} s={0.7} puffs={SMALL_CLOUD} />
+        <Cumulus x={1480} y={230} s={0.55} puffs={SMALL_CLOUD} />
+      </g>
+
+      {/* far mountains in the blue haze of distance */}
+      <path
+        d="M0 610 L120 560 L210 585 L330 520 L450 575 L560 545 L700 600 L860 555 L980 590 L1110 530 L1240 580 L1360 540 L1480 575 L1600 550 V700 H0Z"
+        fill="url(#s-far)"
+      />
+
+      {/* hills, far to near; each gets a sunlit rim along its top */}
+      <g className="hills">
+        <path d="M0 640 C 240 590 460 610 700 640 S 1180 590 1600 630 V1000 H0Z" fill="#a9cf8c" />
+        <path d="M0 640 C 240 590 460 610 700 640 S 1180 590 1600 630" className="rim" />
+        <path d="M0 720 C 300 650 560 690 820 730 S 1300 660 1600 700 V1000 H0Z" fill="#86bc63" />
+        <path d="M0 720 C 300 650 560 690 820 730 S 1300 660 1600 700" className="rim" />
+        <path d="M0 830 C 260 780 520 800 800 840 S 1320 790 1600 820 V1000 H0Z" fill="#6aa84f" />
+        <path d="M0 830 C 260 780 520 800 800 840 S 1320 790 1600 820" className="rim" />
+      </g>
+
+      {/* a footpath winds up to the house */}
+      <path
+        d="M560 1000 C 520 940 610 900 560 860 S 380 800 330 742"
+        fill="none"
+        stroke="#e9dcb4"
+        strokeWidth="14"
+        strokeLinecap="round"
+        opacity="0.85"
+      />
+
+      {/* the house: walls, a red roof with eaves, chimney, window and door */}
+      <g transform="translate(300 742)">
+        <rect x="-38" y="-40" width="76" height="40" fill="#f4ecd8" />
+        <rect x="-38" y="-40" width="22" height="40" fill="#e3d8bf" />
+        <path d="M-48 -38 L0 -76 L48 -38Z" fill="#c4553f" />
+        <path d="M-48 -38 L0 -76 L-4 -38Z" fill="#a8432f" />
+        <rect x="18" y="-74" width="9" height="20" fill="#8a6e5a" />
+        <rect x="6" y="-30" width="14" height="12" fill="#5d84aa" />
+        <rect x="-10" y="-22" width="11" height="22" fill="#7b5a43" />
+      </g>
+
+      {/* the big tree, its shadow falling away from the sun */}
+      <ellipse cx="1215" cy="702" rx="120" ry="16" fill="#4f8a3d" opacity="0.55" />
+      <g className="sway" style={{ transformOrigin: '1270px 700px' }}>
+        <path d="M1258 700 C 1262 640 1256 600 1262 560 L1278 560 C 1284 600 1278 640 1284 700Z" fill="#6b4f3a" />
+        <path d="M1270 600 C 1240 585 1225 570 1215 552" stroke="#6b4f3a" strokeWidth="7" fill="none" />
+        <path d="M1272 585 C 1300 570 1315 555 1325 540" stroke="#6b4f3a" strokeWidth="7" fill="none" />
+        <g fill="#3f7a3a">
+          <circle cx="1205" cy="540" r="62" />
+          <circle cx="1270" cy="500" r="80" />
+          <circle cx="1340" cy="535" r="60" />
+          <circle cx="1265" cy="565" r="58" />
+        </g>
+        <g fill="#589b48">
+          <circle cx="1214" cy="530" r="50" />
+          <circle cx="1280" cy="488" r="66" />
+          <circle cx="1346" cy="524" r="46" />
+        </g>
+        <g fill="#7fbe5d">
+          <circle cx="1226" cy="516" r="30" />
+          <circle cx="1296" cy="470" r="40" />
+          <circle cx="1352" cy="510" r="24" />
+        </g>
+      </g>
+
+      {/* grass in the foreground leans with the wind */}
+      <g className="breeze" fill="#4f9440">
+        <path d="M60 1000 Q 70 940 52 900 Q 82 940 80 1000Z M96 1000 Q 108 930 128 896 Q 112 950 116 1000Z M30 1000 Q 22 950 4 925 Q 40 950 48 1000Z" />
+        <path d="M1500 1000 Q 1510 930 1490 892 Q 1524 940 1522 1000Z M1540 1000 Q 1552 940 1580 905 Q 1560 955 1562 1000Z" />
+      </g>
+
+      {/* dandelion seeds drift across on the breeze */}
+      <g className="seeds" fill="#ffffff">
+        {seeds.map(([x, y, delay]) => (
+          <circle key={x} cx={x} cy={y} r="3" style={{ animationDelay: `${delay}s` }} />
+        ))}
+      </g>
+
+      <Grain id="s-grain" />
     </svg>
   );
 }
