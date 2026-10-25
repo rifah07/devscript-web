@@ -1744,15 +1744,18 @@ a.chip.pending:hover {
 [data-theme='moonlit'] main:has(.wide),
 [data-theme='summer'] main:has(.wide) {
   width: min(72rem, calc(100% - 1.5rem));
+  max-width: none;
+  /* base `main` caps at --measure, which blocked the width */
 }
 
+/* .wide fills the sheet instead of centering itself with a transform
+   (this also lets position: sticky work below) */
 [data-theme='meadow'] main .wide,
 [data-theme='moonlit'] main .wide,
 [data-theme='summer'] main .wide {
   width: 100%;
   left: auto;
   transform: none;
-  /* also lets position: sticky work below */
 }
 
 /* Editor pages: use more of a laptop screen */
@@ -1760,16 +1763,7 @@ a.chip.pending:hover {
 [data-theme='moonlit'] main:has(.editor-layout),
 [data-theme='summer'] main:has(.editor-layout) {
   width: min(84rem, calc(100% - 2rem));
-}
-
-@media (min-width: 80rem) {
-
-  [data-theme='meadow'] .editor-layout,
-  [data-theme='moonlit'] .editor-layout,
-  [data-theme='summer'] .editor-layout {
-    grid-template-columns: minmax(0, 1fr) 21rem;
-    /* slightly roomier settings column */
-  }
+  max-width: none;
 }
 
 /* Editor: writing column + settings column, stacked on small screens */
@@ -1779,6 +1773,17 @@ a.chip.pending:hover {
   gap: clamp(1.25rem, 3vw, 2.25rem);
 }
 
+/* Slightly roomier settings column on big laptop screens */
+@media (min-width: 80rem) {
+
+  [data-theme='meadow'] .editor-layout,
+  [data-theme='moonlit'] .editor-layout,
+  [data-theme='summer'] .editor-layout {
+    grid-template-columns: minmax(0, 1fr) 21rem;
+  }
+}
+
+/* Settings column stays in view while writing (not on phones/tablets) */
 @media (min-width: 64rem) {
 
   [data-theme='meadow'] .editor-layout>aside,
