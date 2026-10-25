@@ -10,6 +10,7 @@ import type { Category, EditablePost } from '@/lib/types';
 import { isMisk, site, SPACE, type PostType } from '@/site/config';
 import { AiPanel } from './AiPanel';
 import { GalleryManager } from './GalleryManager';
+import { MarkdownToolbar, onFormatShortcut } from './MarkdownToolbar';
 import { SeriesPicker } from './SeriesPicker';
 import { StatusChip } from './StatusChip';
 
@@ -41,6 +42,7 @@ export function Editor({ initial }: { initial: EditablePost | null }) {
   const [preview, setPreview] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const saving = useRef(false);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     void clientGql<{ categories: Category[] }>(`query($s: PostSpace){ categories(space:$s){ _id name slug } }`, { s: SPACE })
@@ -180,13 +182,16 @@ export function Editor({ initial }: { initial: EditablePost | null }) {
             <label className="sr-only" htmlFor="body">
               Body
             </label>
+            {!isMisk && <MarkdownToolbar target={bodyRef} />}
             <textarea
+              ref={bodyRef}
               id="body"
               className="editor-body"
               placeholder={isMisk ? 'Begin here. Leave an empty line between stanzas.' : 'Write in Markdown. # for headings, ``` for code.'}
               value={draft.body}
               spellCheck
               onChange={(e) => update({ body: e.target.value })}
+              onKeyDown={isMisk ? undefined : onFormatShortcut}
             />
           </>
         )}
@@ -287,7 +292,7 @@ function ScheduleForm({ disabled, onSchedule }: { disabled: boolean; onSchedule:
         Or schedule for
         <input type="datetime-local" min={min} value={at} onChange={(e) => setAt(e.target.value)} />
       </label>
-      <button type="button" className="btn quiet small" disabled={disabled || !at} onClick={() => onSchedule(at)}>
+      <button type="button" className="btn quiet" disabled={disabled || !at} onClick={() => onSchedule(at)}>
         Schedule
       </button>
     </div>

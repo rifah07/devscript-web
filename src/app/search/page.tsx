@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Form from 'next/form';
 import { Suspense } from 'react';
 import { PostList, Pager } from '@/components/PostList';
 import { asCursor } from '@/lib/cursor';
@@ -6,7 +7,8 @@ import { searchPosts } from '@/lib/queries';
 
 export const metadata: Metadata = { title: 'Search', robots: { index: false } };
 
-// A plain GET form: works without JavaScript and the URL is shareable.
+// A GET form: works without JavaScript, the URL is shareable, and with
+// JavaScript next/form navigates in place instead of reloading the page.
 export default function SearchPage({ searchParams }: PageProps<'/search'>) {
   return (
     <>
@@ -25,13 +27,13 @@ const queryOf = (v: string | string[] | undefined) => (typeof v === 'string' ? v
 
 async function SearchForm({ searchParams }: Pick<PageProps<'/search'>, 'searchParams'>) {
   return (
-    <form className="search-form" action="/search" role="search">
+    <Form className="search-form" action="/search" role="search">
       <label className="sr-only" htmlFor="q">
         Search
       </label>
       <input id="q" name="q" type="search" minLength={2} defaultValue={queryOf((await searchParams).q)} required />
       <button type="submit">Search</button>
-    </form>
+    </Form>
   );
 }
 

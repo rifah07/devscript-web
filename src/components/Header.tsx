@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { isMisk, site } from '@/site/config';
 import { NavLinks } from './NavLinks';
 import { SessionNav } from './SessionNav';
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeMenu } from './ThemeMenu';
 
 export function Header() {
   return (
@@ -16,11 +16,13 @@ export function Header() {
           </>
         )}
       </Link>
-      <nav className="site-nav" aria-label="Main">
-        <NavLinks />
-        <SessionNav />
-        <ThemeToggle />
-      </nav>
+      <div className="header-end">
+        <nav className="site-nav" aria-label="Main">
+          <NavLinks />
+          <SessionNav />
+        </nav>
+        <ThemeMenu />
+      </div>
     </header>
   );
 }

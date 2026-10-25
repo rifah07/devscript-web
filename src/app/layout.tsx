@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono, Newsreader, Noto_Serif_Bengali } from 'next/font/google';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { Scenery } from '@/components/Scenery';
 import { VerifyBanner } from '@/components/VerifyBanner';
 import { SessionProvider } from '@/lib/session';
 import { site } from '@/site/config';
@@ -36,7 +37,9 @@ export const viewport: Viewport = {
 
 // Runs before first paint, so the page never flashes the wrong theme. The
 // only inline script on the site; it reads a UI preference, nothing secret.
-const themeScript = `try{document.documentElement.dataset.theme=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}`;
+// A saved theme only counts if this site offers it (Misk's Moonlit isn't a DevScript theme).
+const themeIds = JSON.stringify(site.themes.map((t) => t.id));
+const themeScript = `try{var t=localStorage.getItem('theme');document.documentElement.dataset.theme=${themeIds}.indexOf(t)>-1?t:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
@@ -51,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <Scenery />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

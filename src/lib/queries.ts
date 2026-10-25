@@ -49,7 +49,7 @@ export async function getPost(slug: string): Promise<PostFull | null> {
       await gql<{ post: PostFull }>(
         `query($s: String!){ post(slug:$s){
           ${POST_CARD} body summary bodyFormat updatedAt ogTitle ogDescription ogImage
-          coverImageVariants { landscape } series { title slug } seriesOrder
+          coverImageVariants { landscape } coverImageUrl series { title slug } seriesOrder
           narrationUrl narrationDuration
           gallery { url publicId width height alt order downloadUrl variants { thumbnail landscape original } }
         } }`,

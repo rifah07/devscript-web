@@ -4,6 +4,11 @@ export type Space = 'DEVSCRIPT' | 'PERSONAL';
 export type PostType = 'ARTICLE' | 'POEM' | 'REFLECTION' | 'NOTE';
 export type ReactionType = 'LIKE' | 'HELPFUL' | 'INSPIRING' | 'BRILLIANT';
 
+// A theme is a set of colour tokens in globals.css ([data-theme='id']); some
+// also paint a scene behind the page (components/Scenery.tsx).
+export type Scene = 'meadow' | 'moonlit' | 'earth';
+export type Theme = { id: string; label: string; hint: string; swatch: string; scene?: Scene };
+
 type SiteConfig = {
   space: Space;
   key: 'devscript' | 'misk';
@@ -18,6 +23,7 @@ type SiteConfig = {
   nav: { href: string; label: string }[];
   defaultTheme: 'light' | 'dark';
   colors: { light: string; dark: string };
+  themes: Theme[];
 };
 
 const DEVSCRIPT: SiteConfig = {
@@ -46,6 +52,11 @@ const DEVSCRIPT: SiteConfig = {
   ],
   defaultTheme: 'dark',
   colors: { light: '#FBFBFA', dark: '#0B0C0E' },
+  themes: [
+    { id: 'dark', label: 'Terminal', hint: 'Green on black', swatch: 'linear-gradient(135deg, #0b0c0e 55%, #4ade9a 55%)' },
+    { id: 'light', label: 'Paper', hint: 'Plain and bright', swatch: 'linear-gradient(135deg, #fbfbfa 55%, #0f7a4b 55%)' },
+    { id: 'earth', label: 'Earth', hint: 'Clay, sand and contour lines', swatch: 'linear-gradient(135deg, #efe4d2 0 40%, #c27a4a 40% 70%, #5b6b3a 70%)', scene: 'earth' },
+  ],
 };
 
 const MISK: SiteConfig = {
@@ -75,6 +86,12 @@ const MISK: SiteConfig = {
   ],
   defaultTheme: 'light',
   colors: { light: '#F7F1E6', dark: '#15110E' },
+  themes: [
+    { id: 'light', label: 'Paper', hint: 'Warm, like a notebook', swatch: 'linear-gradient(135deg, #f7f1e6 55%, #a4574b 55%)' },
+    { id: 'dark', label: 'Ink', hint: 'Lamplight on dark paper', swatch: 'linear-gradient(135deg, #15110e 55%, #c98476 55%)' },
+    { id: 'meadow', label: 'Meadow', hint: 'Hills, trees, a pond and a river', swatch: 'linear-gradient(180deg, #dbeaf0 0 45%, #b8d4a8 45% 75%, #7fa774 75%)', scene: 'meadow' },
+    { id: 'moonlit', label: 'Moonlit', hint: 'Stars, a moon and the sea at night', swatch: 'radial-gradient(circle at 70% 30%, #f6e7b0 0 14%, transparent 15%), linear-gradient(180deg, #0b1430 60%, #1d3b6b 60%)', scene: 'moonlit' },
+  ],
 };
 
 export const SPACE: Space = process.env.NEXT_PUBLIC_SPACE === 'PERSONAL' ? 'PERSONAL' : 'DEVSCRIPT';

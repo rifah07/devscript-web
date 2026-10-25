@@ -88,7 +88,8 @@ async function Article({ params }: Pick<PageProps<'/posts/[slug]'>, 'params'>) {
       )}
 
       <PostBody body={post.body} format={post.bodyFormat} />
-      <PhotoEssay images={post.gallery} />
+      {/* DevScript already shows the cover at the top; don't repeat it at the end */}
+      <PhotoEssay images={isMisk ? post.gallery : post.gallery.filter((img) => img.url !== post.coverImageUrl)} />
       <ViewTracker postId={post._id} />
 
       <div className="post-actions">

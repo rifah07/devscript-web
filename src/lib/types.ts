@@ -51,6 +51,7 @@ export type PostFull = PostCard & {
   ogDescription?: string | null;
   ogImage?: string | null;
   coverImageVariants?: { landscape: string } | null;
+  coverImageUrl?: string | null;
   series?: { title: string; slug: string } | null;
   seriesOrder?: number | null;
   narrationUrl?: string | null;
