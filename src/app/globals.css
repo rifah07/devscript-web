@@ -113,6 +113,20 @@
   color-scheme: light;
 }
 
+/* Summer is shared by both sites; the sky-blue accent keeps 5.9:1 on the glass */
+[data-theme='summer'] {
+  --bg: #e9f3f6;
+  --surface: #fbfdfd;
+  --surface-2: #e3eef0;
+  --text: #1d2b33;
+  --muted: #4f616b;
+  --accent: #1f6a96;
+  --accent-ink: #ffffff;
+  --rule: #d3e3e8;
+  --danger: #a12a2a;
+  color-scheme: light;
+}
+
 /* ══════════════════════════════ Base ══════════════════════════════ */
 
 html {
@@ -1434,6 +1448,32 @@ a.chip.pending:hover {
   font: 600 1.6rem/1 var(--font-display);
 }
 
+/* The two default themes get light instead of a scene: painted once, fixed, no motion */
+[data-site='devscript'][data-theme='dark'] body::before,
+[data-site='devscript'][data-theme='dark'] body::after,
+[data-site='misk'][data-theme='light'] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+[data-site='devscript'][data-theme='dark'] body::before {
+  background:
+    radial-gradient(60rem 32rem at 88% -12%, rgb(74 222 154 / 0.11), transparent 70%),
+    radial-gradient(48rem 30rem at -12% 18%, rgb(96 165 250 / 0.07), transparent 70%);
+}
+/* a faint engineering grid that fades out before the text */
+[data-site='devscript'][data-theme='dark'] body::after {
+  background: radial-gradient(rgb(255 255 255 / 0.06) 1px, transparent 1px) 0 0 / 26px 26px;
+  mask-image: linear-gradient(to bottom, #000, transparent 55%);
+}
+[data-site='misk'][data-theme='light'] body::before {
+  background:
+    radial-gradient(52rem 30rem at 50% -8%, rgb(255 244 214 / 0.9), transparent 70%),
+    radial-gradient(70rem 50rem at 50% 120%, rgb(164 87 75 / 0.07), transparent 70%);
+}
+
 /* ══════════════════════════ Themes with scenery ══════════════════════════ */
 
 .scenery {
@@ -1449,7 +1489,8 @@ a.chip.pending:hover {
 }
 [data-theme='meadow'] .scene-meadow,
 [data-theme='moonlit'] .scene-moonlit,
-[data-theme='earth'] .scene-earth {
+[data-theme='earth'] .scene-earth,
+[data-theme='summer'] .scene-summer {
   display: block;
 }
 .grain {
@@ -1463,7 +1504,8 @@ a.chip.pending:hover {
 
 /* A glass sheet to read on: the landscape stays visible around the words */
 [data-theme='meadow'] main,
-[data-theme='moonlit'] main {
+[data-theme='moonlit'] main,
+[data-theme='summer'] main {
   width: min(var(--measure), calc(100% - 1.5rem));
   margin: 1.5rem auto 3rem;
   padding: 2.25rem clamp(1.1rem, 4vw, 2.5rem) 3rem;
@@ -1476,7 +1518,8 @@ a.chip.pending:hover {
 }
 [data-theme='meadow'] .site-footer,
 [data-theme='moonlit'] .site-footer,
-[data-theme='earth'] .site-footer {
+[data-theme='earth'] .site-footer,
+[data-theme='summer'] .site-footer {
   background: color-mix(in srgb, var(--bg) 70%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -1615,6 +1658,46 @@ a.chip.pending:hover {
 @keyframes contour {
   to {
     stroke-dashoffset: -320;
+  }
+}
+
+/* Summer: clouds drift (shared .clouds), the tree sways, grass leans, seeds float */
+.hills .rim {
+  fill: none;
+  stroke: #d9efb0;
+  stroke-width: 3;
+  opacity: 0.6;
+}
+.breeze path {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: lean 5s ease-in-out infinite alternate;
+}
+.breeze path:nth-child(2) {
+  animation-duration: 6.5s;
+}
+@keyframes lean {
+  from {
+    transform: skewX(-4deg);
+  }
+  to {
+    transform: skewX(5deg);
+  }
+}
+.seeds circle {
+  opacity: 0;
+  animation: seed-drift 18s linear infinite;
+}
+@keyframes seed-drift {
+  10% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 0;
+    transform: translate(-260px, -140px);
   }
 }
 
